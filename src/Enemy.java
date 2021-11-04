@@ -6,11 +6,15 @@ public abstract class Enemy implements Drawable, Moveable {
 	protected int xpos,ypos;
 	protected int sizeX,sizeY;
 	protected Image graphic;
-	//private BulletPattern bulletPat;
+	protected boolean isDead;
+	protected int speed;
+	protected Double[] movementVector;
+	//protected BulletPattern bulletPat;
 	
 	public Enemy(int x,int y) {
 		xpos=x;
 		ypos=y;
+		isDead=false;
 	}
 	
 	public int getXPos() {
