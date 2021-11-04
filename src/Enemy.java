@@ -1,10 +1,11 @@
+import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 
 public abstract class Enemy implements Drawable, Moveable {
 
-	private int xpos,ypos;
-	private int sizeX,sizeY;
-	private Rectangle graphic;
+	protected int xpos,ypos;
+	protected int sizeX,sizeY;
+	protected Image graphic;
 	//private BulletPattern bulletPat;
 	
 	public Enemy(int x,int y) {
@@ -24,7 +25,7 @@ public abstract class Enemy implements Drawable, Moveable {
 	public int getSizeY() {
 		return sizeY;
 	}
-	public Rectangle getGraphic() {
+	public Image getGraphic() {
 		return graphic;
 	}
 	
