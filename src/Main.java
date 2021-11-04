@@ -13,7 +13,7 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Pane root = new Pane();
-		Scene s = new Scene(root,400,400);
+		Scene s = new Scene(root,600,800);
 		primaryStage.setScene(s);
 		primaryStage.show();
 	}
