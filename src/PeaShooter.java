@@ -15,6 +15,8 @@ public class PeaShooter extends Enemy{
 		movementVector[0]=1.0;
 		movementVector[1]=0.5;
 		graphic=new Image("res/peashooter.png");
+		TIME_MAX=60;
+		time_act=TIME_MAX;
 		
 		
 	}
@@ -36,9 +38,20 @@ public class PeaShooter extends Enemy{
 		if(xpos<0) {
 			movementVector[0]=1.0;
 		}
+		time_act--;
+		if(time_act<=0) {
+			time_act=TIME_MAX;
+			shoot();
+		}
 		xpos+=(int)(movementVector[0]*speed);
 		ypos+=(int)(movementVector[1]*speed);
 		System.out.println(xpos);
+	}
+
+	@Override
+	public void shoot() {
+		// TODO Auto-generated method stub
+		System.out.println("SHOOTING");
 	}
 
 }

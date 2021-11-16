@@ -12,7 +12,10 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class Main extends Application{
-
+	
+	public static final int height=800;
+	public static final int width=600;
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -20,18 +23,21 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Pane root = new Pane();
-		;
-		Canvas gameCan=new Canvas(600,800);
+		Canvas gameCan=new Canvas(width,height);
 		GraphicsContext gameGC=gameCan.getGraphicsContext2D();
 		root.getChildren().add(gameCan);
+		
+		Map currentMap=new FirstMap("map1");
 		PeaShooter testE=new PeaShooter(100,100);
-	
-		EventHandler<ActionEvent> eh= new EventHandler<ActionEvent>() {
+		
+		
+		
+			EventHandler<ActionEvent> eh= new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				gameGC.fillRect(0, 0, 600, 800);
+				gameGC.drawImage(currentMap.graphic,0,currentMap.yScroll);
 				testE.move();
 				gameGC.drawImage(testE.getGraphic(), testE.getXPos(), testE.getYPos());
 			}
@@ -41,7 +47,7 @@ public class Main extends Application{
 		Timeline tl = new Timeline(new KeyFrame(Duration.millis(32),eh));
 		tl.setCycleCount(Timeline.INDEFINITE);
 		tl.play();
-		Scene s = new Scene(root,600,800);
+		Scene s = new Scene(root,width,height);
 		primaryStage.setScene(s);
 		primaryStage.show();
 		

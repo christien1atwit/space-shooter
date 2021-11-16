@@ -9,6 +9,9 @@ public abstract class Enemy implements Drawable, Moveable {
 	protected boolean isDead;
 	protected int speed;
 	protected Double[] movementVector;
+	protected int TIME_MAX;
+	protected int time_act;
+	
 	//protected BulletPattern bulletPat;
 	
 	public Enemy(int x,int y) {
@@ -16,6 +19,8 @@ public abstract class Enemy implements Drawable, Moveable {
 		ypos=y;
 		isDead=false;
 	}
+	
+	public abstract void shoot();
 	
 	public int getXPos() {
 		return xpos;
