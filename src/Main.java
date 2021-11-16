@@ -31,6 +31,7 @@ public class Main extends Application{
 		
 		Map currentMap=new FirstMap("map1");
 		PeaShooter testE=new PeaShooter(100,100);
+		Player testPlayer = new Player(100, 500);
 		
 		
 		
@@ -42,8 +43,10 @@ public class Main extends Application{
 				
 				testE.move();
 				currentMap.draw();
+				testPlayer.draw();
 				gameGC.drawImage(currentMap.graphic,0,currentMap.yScroll);
 				gameGC.drawImage(testE.getGraphic(), testE.getXPos(), testE.getYPos());
+				gameGC.drawImage(testPlayer.getGraphic(), testPlayer.getXPos(), testPlayer.getYPos());
 			}
 			
 		};
@@ -52,6 +55,8 @@ public class Main extends Application{
 		tl.setCycleCount(Timeline.INDEFINITE);
 		tl.play();
 		Scene s = new Scene(root,width,height);
+		s.setOnKeyPressed(testPlayer.moveHandler);
+		s.setOnKeyReleased(testPlayer.stopHandler);
 		primaryStage.setScene(s);
 		primaryStage.show();
 		

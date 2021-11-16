@@ -16,4 +16,11 @@ public class FirstMap extends Map{
 		scroll();
 	}
 
+	@Override
+	public Image getGraphic() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }
