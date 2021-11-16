@@ -5,8 +5,9 @@ public class FirstMap extends Map{
 	public FirstMap(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
-		graphic=new Image("map1.png");
-		yScroll=(int) graphic.getHeight()-Main.height;
+		graphic=new Image("res/map1.png");
+		yScroll=Main.height-(int)graphic.getHeight();
+		scrollSp=5;
 	}
 
 	@Override

@@ -13,8 +13,9 @@ public abstract class Map implements Drawable{
 	}
 	
 	public void scroll() {
-		if(yScroll>0) {
-			yScroll-=scrollSp;
+		System.out.println(yScroll);
+		if(yScroll<0) {
+			yScroll+=scrollSp;
 		}
 	}
 	

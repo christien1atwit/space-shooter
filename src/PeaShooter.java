@@ -45,7 +45,7 @@ public class PeaShooter extends Enemy{
 		}
 		xpos+=(int)(movementVector[0]*speed);
 		ypos+=(int)(movementVector[1]*speed);
-		System.out.println(xpos);
+		//System.out.println(xpos);
 	}
 
 	@Override

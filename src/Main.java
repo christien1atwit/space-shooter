@@ -1,3 +1,5 @@
+import java.util.concurrent.ConcurrentMap;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -37,8 +39,10 @@ public class Main extends Application{
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				gameGC.drawImage(currentMap.graphic,0,currentMap.yScroll);
+				
 				testE.move();
+				currentMap.draw();
+				gameGC.drawImage(currentMap.graphic,0,currentMap.yScroll);
 				gameGC.drawImage(testE.getGraphic(), testE.getXPos(), testE.getYPos());
 			}
 			
