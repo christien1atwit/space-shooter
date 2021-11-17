@@ -39,14 +39,12 @@ public class Main extends Application{
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+
 				
-				testE.move();
-				currentMap.draw();
-				testPlayer.draw();
-				gameGC.drawImage(currentMap.graphic,0,currentMap.yScroll);
-				gameGC.drawImage(testE.getGraphic(), testE.getXPos(), testE.getYPos());
-				gameGC.drawImage(testPlayer.getGraphic(), testPlayer.getXPos(), testPlayer.getYPos());
+				currentMap.draw(gameGC);
+				testPlayer.draw(gameGC);
+				
+				
 			}
 			
 		};

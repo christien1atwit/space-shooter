@@ -1,3 +1,4 @@
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class FirstMap extends Map{
@@ -8,12 +9,26 @@ public class FirstMap extends Map{
 		graphic=new Image("res/map1.png");
 		yScroll=Main.height-(int)graphic.getHeight();
 		scrollSp=5;
+		enemyForms=new EnemyFormation[] {new TriplePea(-6900,-6000)};
 	}
 
 	@Override
-	public void draw() {
+	public void draw(GraphicsContext gc) {
 		// TODO Auto-generated method stub
+		spawnEnemies();
 		scroll();
+		if(currentEnemies!=null) {
+			for(Enemy e : currentEnemies) {
+				e.move();
+			}
+		}
+		gc.drawImage(graphic, 0, yScroll);
+		if(currentEnemies!=null) {
+			for(Enemy e: currentEnemies) {
+				e.draw(gc);
+			}
+		}
+		
 	}
 
 	@Override

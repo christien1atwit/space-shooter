@@ -1,6 +1,13 @@
+
 import javafx.scene.image.Image;
 
+import javafx.scene.canvas.GraphicsContext;
+
+
 public interface Drawable {
-	void draw();
+
+
 	Image getGraphic();
+
+	void draw(GraphicsContext gc);
 }

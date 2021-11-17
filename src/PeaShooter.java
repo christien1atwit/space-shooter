@@ -1,3 +1,4 @@
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 
@@ -22,9 +23,9 @@ public class PeaShooter extends Enemy{
 	}
 
 	@Override
-	public void draw() {
+	public void draw(GraphicsContext gc) {
 		// TODO Auto-generated method stub
-		
+		gc.drawImage(graphic, xpos, ypos);
 		
 	}
 
@@ -45,7 +46,9 @@ public class PeaShooter extends Enemy{
 		}
 		xpos+=(int)(movementVector[0]*speed);
 		ypos+=(int)(movementVector[1]*speed);
-		//System.out.println(xpos);
+		if(ypos>Main.height) {//Enemy is off-screen so we get rid of it
+			isDead=true;
+		}
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -23,10 +24,11 @@ public class Player implements Moveable, Drawable {
 	}
 
 	@Override
-	public void draw() {
+	public void draw(GraphicsContext gc) {
 		// TODO Auto-generated method stub
 		xpos += movementVector[0] * speed;
 		ypos += movementVector[1] * speed;
+		gc.drawImage(graphic, xpos, ypos);
 	}
 
 	@Override
