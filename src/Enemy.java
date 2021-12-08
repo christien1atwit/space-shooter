@@ -37,6 +37,11 @@ public abstract class Enemy implements Drawable, Moveable {
 	public Image getGraphic() {
 		return graphic;
 	}
-	
+	public boolean isDead() {
+		return isDead;
+	}
+	public void setDead(boolean state) {
+		isDead=state;
+	}
 	
 }
