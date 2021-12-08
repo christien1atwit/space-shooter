@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public abstract class Map implements Drawable{
@@ -24,7 +25,7 @@ public abstract class Map implements Drawable{
 	
 	protected void spawnEnemies() {
 		for(int i=0;i<enemyForms.length;i++) {
-			System.out.println("Lower Bound: "+enemyForms[i].yBounds[0]);
+			//System.out.println("Lower Bound: "+enemyForms[i].yBounds[0]);
 			if(enemyForms[i].yBounds[0]<=yScroll && enemyForms[i].yBounds[1]>=yScroll) {
 				if(!enemyForms[i].didSpawn()) {
 					enemyForms[i].setSpawn(true);
@@ -34,6 +35,20 @@ public abstract class Map implements Drawable{
 						currentEnemies.add(toPlace[e]);
 					}
 				}
+			}
+		}
+	}
+	
+	protected void updateEnemies(GraphicsContext gc) {
+		if(currentEnemies!=null) {
+			for(Enemy e : currentEnemies) {
+				e.move();
+			}
+		}
+		gc.drawImage(graphic, 0, yScroll);
+		if(currentEnemies!=null) {
+			for(Enemy e: currentEnemies) {
+				e.draw(gc);
 			}
 		}
 	}

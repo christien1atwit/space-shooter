@@ -17,6 +17,10 @@ public class Bullet implements Moveable, Drawable{
 		ypos = y;
 		movementVector = initHeading;
 		ownedByPlayer = player;
+		
+		if(!ownedByPlayer) {
+			graphic.setRotate(180);
+		}
 	}
 
 	@Override
@@ -28,7 +32,7 @@ public class Bullet implements Moveable, Drawable{
 	@Override
 	public void draw(GraphicsContext gc) {
 		move();
-		gc.drawImage(graphicRaw, xpos, ypos);
+		gc.drawImage(graphic.getImage(), xpos, ypos);
 	}
 
 	@Override

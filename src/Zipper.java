@@ -2,21 +2,20 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 
-public class PeaShooter extends Enemy{
+public class Zipper extends Enemy{
 	
-	private boolean goingRight;
 	
-	public PeaShooter(int x, int y) {
+	
+	public Zipper(int x, int y) {
 		super(x, y);
 		sizeX=32;
 		sizeY=32;
-		goingRight=true;
-		speed=5;
+		speed=20;
 		movementVector=new Double[2];
-		movementVector[0]=1.0;
-		movementVector[1]=0.5;
-		graphic=new Image("res/peashooter.png");
-		TIME_MAX=60;
+		movementVector[0]=0.0;
+		movementVector[1]=1.0;
+		graphic=new Image("res/zipper.png");
+		TIME_MAX=40;
 		time_act=TIME_MAX;
 		
 		
@@ -33,12 +32,7 @@ public class PeaShooter extends Enemy{
 	public void move() {
 		// TODO Auto-generated method stub
 		
-		if(xpos>600) {
-			movementVector[0]=-1.0;
-		}
-		if(xpos<0) {
-			movementVector[0]=1.0;
-		}
+		
 		time_act--;
 		if(time_act<=0) {
 			time_act=TIME_MAX;

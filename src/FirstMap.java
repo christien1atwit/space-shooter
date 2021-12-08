@@ -9,7 +9,7 @@ public class FirstMap extends Map{
 		graphic=new Image("res/map1.png");
 		yScroll=Main.height-(int)graphic.getHeight();
 		scrollSp=5;
-		enemyForms=new EnemyFormation[] {new TriplePea(-6900,-6000)};
+		enemyForms=new EnemyFormation[] {new TriplePea(-6900,-6000),new TriplePea(-5800,-5700),new DualZipper(-5750,-5600)};
 	}
 
 	@Override
@@ -17,17 +17,9 @@ public class FirstMap extends Map{
 		// TODO Auto-generated method stub
 		spawnEnemies();
 		scroll();
-		if(currentEnemies!=null) {
-			for(Enemy e : currentEnemies) {
-				e.move();
-			}
-		}
-		gc.drawImage(graphic, 0, yScroll);
-		if(currentEnemies!=null) {
-			for(Enemy e: currentEnemies) {
-				e.draw(gc);
-			}
-		}
+		updateEnemies(gc);
+		cleanUp();
+		//System.out.println(currentEnemies.size());
 		
 	}
 

@@ -9,6 +9,7 @@ public class Player implements Moveable, Drawable {
 	private int xpos, ypos;
 	private double[] movementVector;
 	private int speed = 5;
+	private boolean isDead=false;
 	private Image graphic = new Image("res/playersized.png");
 	public EventHandler<KeyEvent> playerInputHandler;
 	public EventHandler<KeyEvent> stopHandler;
@@ -59,9 +60,12 @@ public class Player implements Moveable, Drawable {
 	@Override
 	public void draw(GraphicsContext gc) {
 		// TODO Auto-generated method stub
-		xpos += movementVector[0] * speed;
-		ypos += movementVector[1] * speed;
-		gc.drawImage(graphic, xpos, ypos);
+		if(!isDead) {
+			xpos += movementVector[0] * speed;
+			ypos += movementVector[1] * speed;
+			gc.drawImage(graphic, xpos, ypos);
+		}
+		
 	}
 
 	@Override
