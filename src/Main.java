@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.concurrent.ConcurrentMap;
 
 import javafx.animation.KeyFrame;
@@ -17,6 +18,7 @@ public class Main extends Application{
 	
 	public static final int height=800;
 	public static final int width=600;
+	public static ArrayList<Bullet> currentBullets = new ArrayList<Bullet>();
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -33,8 +35,6 @@ public class Main extends Application{
 		PeaShooter testE=new PeaShooter(100,100);
 		Player testPlayer = new Player(100, 500);
 		
-		
-		
 			EventHandler<ActionEvent> eh= new EventHandler<ActionEvent>() {
 
 			@Override
@@ -44,6 +44,9 @@ public class Main extends Application{
 				currentMap.draw(gameGC);
 				testPlayer.draw(gameGC);
 				
+				for(Bullet bullet : currentBullets) {
+					bullet.draw(gameGC);
+				}
 				
 			}
 			
@@ -52,13 +55,22 @@ public class Main extends Application{
 		Timeline tl = new Timeline(new KeyFrame(Duration.millis(32),eh));
 		tl.setCycleCount(Timeline.INDEFINITE);
 		tl.play();
+		
 		Scene s = new Scene(root,width,height);
-		s.setOnKeyPressed(testPlayer.moveHandler);
+		//s.setOnKeyPressed(testPlayer.moveHandler);
 		s.setOnKeyReleased(testPlayer.stopHandler);
+		s.setOnKeyPressed(testPlayer.playerInputHandler);
+		
+		
 		primaryStage.setScene(s);
 		primaryStage.show();
 		
 		
+	}
+	
+	public static void createBullet(int x, int y, double[] initHeading, boolean playerOwned) {
+		Bullet bullet = new Bullet(x, y, initHeading, playerOwned);
+		currentBullets.add(bullet);
 	}
 
 }

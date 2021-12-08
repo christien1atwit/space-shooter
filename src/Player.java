@@ -10,8 +10,9 @@ public class Player implements Moveable, Drawable {
 	private double[] movementVector;
 	private int speed = 5;
 	private Image graphic = new Image("res/playersized.png");
-	public EventHandler<KeyEvent> moveHandler;
+	public EventHandler<KeyEvent> playerInputHandler;
 	public EventHandler<KeyEvent> stopHandler;
+	private boolean holdingUp, holdingDown, holdingLeft, holdingRight;
 	
 	public Player(int x, int y) {
 		xpos = x;
@@ -19,6 +20,38 @@ public class Player implements Moveable, Drawable {
 		movementVector = new double[2];
 		movementVector[0] = 0.0;
 		movementVector[1] = 0.0;
+		
+		playerInputHandler = new EventHandler<KeyEvent>() { //Handles moving, shooting inputs
+
+			@Override
+			public void handle(KeyEvent arg0) {
+				KeyCode keyPressed = arg0.getCode();
+				if(keyPressed == KeyCode.SPACE) {
+					shoot();
+				}
+				
+				switch(keyPressed) {
+					case UP:
+						holdingUp = true;
+						movementVector[1] = -1;
+						break;
+					case DOWN:
+						holdingDown = true;
+						movementVector[1] = 1;
+						break;
+					case LEFT:
+						holdingLeft = true;
+						movementVector[0] = -1;
+						break;
+					case RIGHT:
+						holdingRight = true;
+						movementVector[0] = 1;
+						break;
+				}
+				
+			}
+			
+		};
 		
 		move();
 	}
@@ -33,40 +66,50 @@ public class Player implements Moveable, Drawable {
 
 	@Override
 	public void move() {
-		moveHandler = new EventHandler<KeyEvent>() {
+		stopHandler = new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent arg0) {
 				KeyCode keyPressed = arg0.getCode();
 				switch(keyPressed) {
 					case UP:
-						movementVector[1] = -1;
+						holdingUp = false;
 						break;
 					case DOWN:
-						movementVector[1] = 1;
+						holdingDown = false;
 						break;
 					case LEFT:
-						movementVector[0] = -1;
+						holdingLeft = false;
 						break;
 					case RIGHT:
-						movementVector[0] = 1;
+						holdingRight = false;
 						break;
-				}
-			}
-			
-		};
-		stopHandler = new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent arg0) {
-				KeyCode keyPressed = arg0.getCode();
+				};
+				
 				if(keyPressed == KeyCode.UP || keyPressed == KeyCode.DOWN) {
-					movementVector[1] = 0;
+					if(holdingUp) {
+						movementVector[1] = -1;
+					} else if(holdingDown) {
+						movementVector[1] = 1;
+					} else {
+						movementVector[1] = 0;
+					}
 				}
 				if(keyPressed == KeyCode.LEFT || keyPressed == KeyCode.RIGHT){
-					movementVector[0] = 0;
+					if(holdingLeft) {
+						movementVector[0] = -1;
+					} else if(holdingRight) {
+						movementVector[0] = 1;
+					} else {
+						movementVector[0] = 0;
+					}
 				}
 			}
 			
 		};
+	}
+	
+	private void shoot() {
+		Main.createBullet((int)(this.xpos + graphic.getWidth() / 2), this.ypos, new double[] {0.0, -1.0}, true);
 	}
 	
 	public Image getGraphic() {
