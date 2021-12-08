@@ -1,5 +1,6 @@
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 
 public class PeaShooter extends Enemy{
@@ -15,7 +16,7 @@ public class PeaShooter extends Enemy{
 		movementVector=new Double[2];
 		movementVector[0]=1.0;
 		movementVector[1]=0.5;
-		graphic=new Image("res/peashooter.png");
+		graphic=new ImageView("res/peashooter.png");
 		TIME_MAX=60;
 		time_act=TIME_MAX;
 		
@@ -23,9 +24,9 @@ public class PeaShooter extends Enemy{
 	}
 
 	@Override
-	public void draw(GraphicsContext gc) {
+	public void draw() {
 		// TODO Auto-generated method stub
-		gc.drawImage(graphic, xpos, ypos);
+		//gc.drawImage(graphic, xpos, ypos);
 		
 	}
 
@@ -46,6 +47,8 @@ public class PeaShooter extends Enemy{
 		}
 		xpos+=(int)(movementVector[0]*speed);
 		ypos+=(int)(movementVector[1]*speed);
+		graphic.setX(xpos);
+		graphic.setY(ypos);
 		if(ypos>Main.height) {//Enemy is off-screen so we get rid of it
 			isDead=true;
 		}
@@ -54,7 +57,7 @@ public class PeaShooter extends Enemy{
 	@Override
 	public void shoot() {
 		// TODO Auto-generated method stub
-		Main.createBullet((int)(this.xpos + graphic.getWidth() / 2), this.ypos+this.sizeY, new double[] {0.0, 1.0}, false);
+		Main.createBullet((int)(this.xpos + graphic.getFitWidth() / 2), this.ypos+this.sizeY, new double[] {0.0, 1.0}, false);
 	}
 
 }

@@ -1,11 +1,12 @@
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 
 public abstract class Enemy implements Drawable, Moveable {
 
 	protected int xpos,ypos;//uses top left corner for x/y position
 	protected int sizeX,sizeY; //Size of enemy in pixels, to be used for hitbox
-	protected Image graphic; //Image for enemy
+	protected ImageView graphic; //Image for enemy
 	protected boolean isDead; //Notes if enemy is destroyed
 	protected int speed; //how much an enemy moves each frame
 	protected Double[] movementVector; //Direction of enemy
@@ -34,7 +35,7 @@ public abstract class Enemy implements Drawable, Moveable {
 	public int getSizeY() {
 		return sizeY;
 	}
-	public Image getGraphic() {
+	public ImageView getGraphic() {
 		return graphic;
 	}
 	public boolean isDead() {

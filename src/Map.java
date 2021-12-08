@@ -2,9 +2,10 @@ import java.util.ArrayList;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public abstract class Map implements Drawable{
-	protected Image graphic;//Graphic of the map
+	protected ImageView graphic;//Graphic of the map
 	protected int yScroll;//Vertical postion of the map starts negative top of the map is yScroll=0
 	protected int scrollSp;//How much the Map scrolls up per frame
 	protected EnemyFormation[] enemyForms; //Array of EnemyFormations 
@@ -20,6 +21,7 @@ public abstract class Map implements Drawable{
 		System.out.println("yScroll: "+yScroll);
 		if(yScroll<0) {
 			yScroll+=scrollSp;
+			graphic.setY(yScroll);
 		}
 	}
 	
@@ -33,24 +35,20 @@ public abstract class Map implements Drawable{
 					Enemy[] toPlace=enemyForms[i].getMyEnemies();
 					for(int e=0; e<toPlace.length;e++) {
 						currentEnemies.add(toPlace[e]);
+						Main.root.getChildren().add(toPlace[e].getGraphic());
 					}
 				}
 			}
 		}
 	}
 	
-	protected void updateEnemies(GraphicsContext gc) {
+	protected void updateEnemies() {
 		if(currentEnemies!=null) {
 			for(Enemy e : currentEnemies) {
 				e.move();
 			}
 		}
-		gc.drawImage(graphic, 0, yScroll);
-		if(currentEnemies!=null) {
-			for(Enemy e: currentEnemies) {
-				e.draw(gc);
-			}
-		}
+		
 	}
 	
 	public void cleanUp() {
@@ -63,6 +61,7 @@ public abstract class Map implements Drawable{
 		if(toRemove!=null) {
 			for(Enemy e:toRemove) {
 				currentEnemies.remove(e);
+				Main.root.getChildren().remove(e.getGraphic());
 			}
 		}
 	}

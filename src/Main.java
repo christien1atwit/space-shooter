@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -21,6 +22,7 @@ public class Main extends Application{
 	public static final int width=600;
 	public static ArrayList<Bullet> currentBullets = new ArrayList<Bullet>();
 	private Player testPlayer;
+	public static Group root = new Group();
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -28,14 +30,16 @@ public class Main extends Application{
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Pane root = new Pane();
+		
 		Canvas gameCan=new Canvas(width,height);
 		GraphicsContext gameGC=gameCan.getGraphicsContext2D();
-		root.getChildren().add(gameCan);
+		//root.getChildren().add(gameCan);
 		
 		Map currentMap=new FirstMap("map1");
 		PeaShooter testE=new PeaShooter(100,100);
 		testPlayer = new Player(100, 500);
+		root.getChildren().add(currentMap.getGraphic());
+		root.getChildren().add(testPlayer.getGraphic());
 		
 			EventHandler<ActionEvent> eh= new EventHandler<ActionEvent>() {
 
@@ -43,11 +47,11 @@ public class Main extends Application{
 			public void handle(ActionEvent arg0) {
 
 				
-				currentMap.draw(gameGC);
-				testPlayer.draw(gameGC);
+				currentMap.draw();
+				testPlayer.draw();
 				
 				for(Bullet bullet : currentBullets) {
-					bullet.draw(root);
+					bullet.draw();
 				}
 				
 				collisionDetect();
@@ -75,11 +79,12 @@ public class Main extends Application{
 	public static void createBullet(int x, int y, double[] initHeading, boolean playerOwned) {
 		Bullet bullet = new Bullet(x, y, initHeading, playerOwned);
 		currentBullets.add(bullet);
+		root.getChildren().add(bullet.getImageView());
 	}
 	
 	public void collisionDetect() {
 		for(Bullet bullet : currentBullets) {
-			if(bullet.getImageView().getBoundsInParent().intersects(new ImageView(testPlayer.getGraphic()).getBoundsInParent())){
+			if(bullet.getImageView().getBoundsInParent().intersects(testPlayer.getGraphic().getBoundsInParent())){
 				testPlayer.setDead(true);
 			}
 		}

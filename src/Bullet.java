@@ -28,9 +28,9 @@ public class Bullet implements Moveable, Drawable{
 	}
 
 	@Override
-	public Image getGraphic() {
+	public ImageView getGraphic() {
 		// TODO Auto-generated method stub
-		return graphic.getImage();
+		return graphic;
 	}
 	
 	public ImageView getImageView() {
@@ -38,7 +38,7 @@ public class Bullet implements Moveable, Drawable{
 	}
 
 	@Override
-	public void draw(Pane root) {
+	public void draw() {
 		if(!destroyed) {
 			move();
 			//gc.drawImage(graphic.getImage(), xpos, ypos);
@@ -58,5 +58,8 @@ public class Bullet implements Moveable, Drawable{
 	public void destroy(boolean state) {
 		destroyed=state;
 	}
+
+	
+	
 }
 

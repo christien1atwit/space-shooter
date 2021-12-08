@@ -2,6 +2,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -10,7 +11,7 @@ public class Player implements Moveable, Drawable {
 	private double[] movementVector;
 	private int speed = 5;
 	private boolean isDead=false;
-	private Image graphic = new Image("res/playersized.png");
+	private ImageView graphic = new ImageView("res/playersized.png");
 	public EventHandler<KeyEvent> playerInputHandler;
 	public EventHandler<KeyEvent> stopHandler;
 	private boolean holdingUp, holdingDown, holdingLeft, holdingRight;
@@ -58,12 +59,14 @@ public class Player implements Moveable, Drawable {
 	}
 
 	@Override
-	public void draw(GraphicsContext gc) {
+	public void draw() {
 		// TODO Auto-generated method stub
 		if(!isDead) {
 			xpos += movementVector[0] * speed;
 			ypos += movementVector[1] * speed;
-			gc.drawImage(graphic, xpos, ypos);
+			//gc.drawImage(graphic, xpos, ypos);
+			graphic.setX(xpos);
+			graphic.setY(ypos);
 		}
 		
 	}
@@ -120,10 +123,10 @@ public class Player implements Moveable, Drawable {
 	}
 	
 	private void shoot() {
-		Main.createBullet((int)(this.xpos + graphic.getWidth() / 2), this.ypos, new double[] {0.0, -1.0}, true);
+		Main.createBullet((int)(this.xpos + graphic.getFitWidth() / 2), this.ypos, new double[] {0.0, -1.0}, true);
 	}
 	
-	public Image getGraphic() {
+	public ImageView getGraphic() {
 		return graphic;
 	}
 	
