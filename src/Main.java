@@ -24,6 +24,8 @@ public class Main extends Application{
 	private Player testPlayer;
 	public static Group root = new Group();
 	
+	private Map currentMap=new FirstMap("map1");
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -35,7 +37,6 @@ public class Main extends Application{
 		GraphicsContext gameGC=gameCan.getGraphicsContext2D();
 		//root.getChildren().add(gameCan);
 		
-		Map currentMap=new FirstMap("map1");
 		PeaShooter testE=new PeaShooter(100,100);
 		testPlayer = new Player(100, 500);
 		root.getChildren().add(currentMap.getGraphic());
@@ -83,11 +84,35 @@ public class Main extends Application{
 	}
 	
 	public void collisionDetect() {
+		Bullet removeBullet = null;
 		for(Bullet bullet : currentBullets) {
 			if(bullet.getImageView().getBoundsInParent().intersects(testPlayer.getGraphic().getBoundsInParent())){
+				if(!bullet.ownedByPlayer) {
+					testPlayer.setDead(true);
+					bullet.destroy(true);
+					removeBullet = bullet;
+				}
+			}
+			for(Enemy enemy : currentMap.currentEnemies) {
+				if(bullet.getImageView().getBoundsInParent().intersects(enemy.getGraphic().getBoundsInParent())){
+					if(bullet.ownedByPlayer) {
+						enemy.setDead(true);
+						bullet.destroy(true);
+						removeBullet = bullet;
+					}
+				}
+			}
+		}
+		if(removeBullet != null) {
+			currentBullets.remove(removeBullet);
+		}
+		
+		for(Enemy enemy : currentMap.currentEnemies) {
+			if(enemy.getGraphic().getBoundsInParent().intersects(testPlayer.getGraphic().getBoundsInParent())){
 				testPlayer.setDead(true);
 			}
 		}
+		
 	}
 
 }

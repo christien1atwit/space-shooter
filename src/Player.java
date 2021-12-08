@@ -29,7 +29,9 @@ public class Player implements Moveable, Drawable {
 			public void handle(KeyEvent arg0) {
 				KeyCode keyPressed = arg0.getCode();
 				if(keyPressed == KeyCode.SPACE) {
-					shoot();
+					if(!isDead) {
+						shoot();
+					}
 				}
 				
 				switch(keyPressed) {
@@ -67,6 +69,8 @@ public class Player implements Moveable, Drawable {
 			//gc.drawImage(graphic, xpos, ypos);
 			graphic.setX(xpos);
 			graphic.setY(ypos);
+		} else {
+			graphic.setImage(null);
 		}
 		
 	}

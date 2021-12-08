@@ -11,7 +11,7 @@ public class Bullet implements Moveable, Drawable{
 	private int speed = 15;
 	private Image graphicRaw = new Image("res/bullet.png");
 	private ImageView graphic = new ImageView(graphicRaw);
-	private boolean ownedByPlayer;
+	public boolean ownedByPlayer;
 	private boolean destroyed=false;
 	
 	public Bullet(int x, int y, double[] initHeading, boolean player) {
@@ -42,7 +42,7 @@ public class Bullet implements Moveable, Drawable{
 		if(!destroyed) {
 			move();
 			//gc.drawImage(graphic.getImage(), xpos, ypos);
-		}
+		} 
 		
 	}
 
@@ -57,6 +57,7 @@ public class Bullet implements Moveable, Drawable{
 	}
 	public void destroy(boolean state) {
 		destroyed=state;
+		graphic.setImage(null);
 	}
 
 	
