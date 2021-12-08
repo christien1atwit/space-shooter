@@ -112,6 +112,13 @@ public class Player implements Moveable, Drawable {
 		};
 	}
 	
+	public boolean getDead() {
+		return isDead;
+	}
+	public void setDead(boolean state) {
+		isDead=state;
+	}
+	
 	private void shoot() {
 		Main.createBullet((int)(this.xpos + graphic.getWidth() / 2), this.ypos, new double[] {0.0, -1.0}, true);
 	}

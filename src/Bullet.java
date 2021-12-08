@@ -11,6 +11,7 @@ public class Bullet implements Moveable, Drawable{
 	private Image graphicRaw = new Image("res/bullet.png");
 	private ImageView graphic = new ImageView(graphicRaw);
 	private boolean ownedByPlayer;
+	private boolean destroyed=false;
 	
 	public Bullet(int x, int y, double[] initHeading, boolean player) {
 		xpos = x;
@@ -31,13 +32,23 @@ public class Bullet implements Moveable, Drawable{
 
 	@Override
 	public void draw(GraphicsContext gc) {
-		move();
-		gc.drawImage(graphic.getImage(), xpos, ypos);
+		if(!destroyed) {
+			move();
+			gc.drawImage(graphic.getImage(), xpos, ypos);
+		}
+		
 	}
 
 	@Override
 	public void move() {
 		ypos += movementVector[1] * speed;
+	}
+	
+	public boolean isDestroyed() {
+		return destroyed;
+	}
+	public void destroy(boolean state) {
+		destroyed=state;
 	}
 }
 
