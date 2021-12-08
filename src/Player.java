@@ -127,7 +127,7 @@ public class Player implements Moveable, Drawable {
 	}
 	
 	private void shoot() {
-		Main.createBullet((int)(this.xpos + graphic.getFitWidth() / 2), this.ypos, new double[] {0.0, -1.0}, true);
+		Main.createBullet((int)(this.xpos + new Image(graphic.getImage().getUrl()).getWidth() / 2), this.ypos, new double[] {0.0, -1.0}, true);
 	}
 	
 	public ImageView getGraphic() {

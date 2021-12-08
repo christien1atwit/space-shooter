@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentMap;
 
@@ -13,6 +14,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -24,6 +27,14 @@ public class Main extends Application{
 	private Player testPlayer;
 	public static Group root = new Group();
 	
+	private String bgMusicFile = "src/res/bgmusic.mp3";     // For example
+	private Media sound = new Media(new File(bgMusicFile).toURI().toString());
+	private MediaPlayer bgMusicMediaPlayer = new MediaPlayer(sound);
+	
+	private static String shootMusicFile = "src/res/shoot.wav";     // For example
+	private static Media sound2 = new Media(new File(shootMusicFile).toURI().toString());
+	private static MediaPlayer shootMediaPlayer = new MediaPlayer(sound2);
+	
 	private Map currentMap=new FirstMap("map1");
 	
 	public static void main(String[] args) {
@@ -32,6 +43,9 @@ public class Main extends Application{
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		
+		
+		bgMusicMediaPlayer.play();
 		
 		Canvas gameCan=new Canvas(width,height);
 		GraphicsContext gameGC=gameCan.getGraphicsContext2D();
@@ -81,6 +95,8 @@ public class Main extends Application{
 		Bullet bullet = new Bullet(x, y, initHeading, playerOwned);
 		currentBullets.add(bullet);
 		root.getChildren().add(bullet.getImageView());
+		shootMediaPlayer.seek(Duration.ZERO);
+		shootMediaPlayer.play();
 	}
 	
 	public void collisionDetect() {
