@@ -3,6 +3,7 @@ import javafx.event.EventHandler;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 public class Bullet implements Moveable, Drawable{
 	private int xpos, ypos;
@@ -18,6 +19,8 @@ public class Bullet implements Moveable, Drawable{
 		ypos = y;
 		movementVector = initHeading;
 		ownedByPlayer = player;
+		graphic.setX(x);
+		graphic.setY(y);
 		
 		if(!ownedByPlayer) {
 			graphic.setRotate(180);
@@ -27,14 +30,18 @@ public class Bullet implements Moveable, Drawable{
 	@Override
 	public Image getGraphic() {
 		// TODO Auto-generated method stub
-		return graphicRaw;
+		return graphic.getImage();
+	}
+	
+	public ImageView getImageView() {
+		return graphic;
 	}
 
 	@Override
-	public void draw(GraphicsContext gc) {
+	public void draw(Pane root) {
 		if(!destroyed) {
 			move();
-			gc.drawImage(graphic.getImage(), xpos, ypos);
+			//gc.drawImage(graphic.getImage(), xpos, ypos);
 		}
 		
 	}
@@ -42,6 +49,7 @@ public class Bullet implements Moveable, Drawable{
 	@Override
 	public void move() {
 		ypos += movementVector[1] * speed;
+		graphic.setY(ypos);
 	}
 	
 	public boolean isDestroyed() {

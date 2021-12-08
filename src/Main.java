@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -19,6 +20,7 @@ public class Main extends Application{
 	public static final int height=800;
 	public static final int width=600;
 	public static ArrayList<Bullet> currentBullets = new ArrayList<Bullet>();
+	private Player testPlayer;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -33,7 +35,7 @@ public class Main extends Application{
 		
 		Map currentMap=new FirstMap("map1");
 		PeaShooter testE=new PeaShooter(100,100);
-		Player testPlayer = new Player(100, 500);
+		testPlayer = new Player(100, 500);
 		
 			EventHandler<ActionEvent> eh= new EventHandler<ActionEvent>() {
 
@@ -45,8 +47,10 @@ public class Main extends Application{
 				testPlayer.draw(gameGC);
 				
 				for(Bullet bullet : currentBullets) {
-					bullet.draw(gameGC);
+					bullet.draw(root);
 				}
+				
+				collisionDetect();
 				
 			}
 			
@@ -71,6 +75,14 @@ public class Main extends Application{
 	public static void createBullet(int x, int y, double[] initHeading, boolean playerOwned) {
 		Bullet bullet = new Bullet(x, y, initHeading, playerOwned);
 		currentBullets.add(bullet);
+	}
+	
+	public void collisionDetect() {
+		for(Bullet bullet : currentBullets) {
+			if(bullet.getImageView().getBoundsInParent().intersects(new ImageView(testPlayer.getGraphic()).getBoundsInParent())){
+				testPlayer.setDead(true);
+			}
+		}
 	}
 
 }
